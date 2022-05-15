@@ -23,17 +23,30 @@ function reverseString(userString){
 */
 // from https://stackoverflow.com/questions/46276224/how-to-remove-all-non-alphabet-characters-javascript#46276295
 function palindrome(userString) {
-    userString = userString.toLowerCase().replace(/[^a-z]/g, '');
-    let max = userString.length - 1;
-    for (let i = Math.floor(max / 2); i >= 0; i--) { //returns false on 1st mismatch
-      if (userString[i] != userString[max - i]) {
-        //return false;
+    let str = userString;
+    let palinRA = [];
+    let msgStr = "";
 
-        return userString = 'Not palindrome';
+    str = str.toLowerCase().replace(/[^a-z]/g, '');
+    let max = str.length - 1;
+    for (let i = Math.floor(max / 2); i >= 0; i--) { //returns false on 1st mismatch
+      if (str[i] != str[max - i]) {
+        //return false;
+        document.getElementById("isPalindrome").innerHTML = `It's not a Palindrome.`;
+        msgStr = "Sadly, not a Palindrome.";
+        palinRA.push(msgStr);
+        palinRA.push(userString);
+        //return userString;
+        return palinRA;
       }
     }
     //return true;
-    return userString;
+    document.getElementById("isPalindrome").innerHTML = `It's a Palindrome!`;
+    //return str;
+    msgStr = "It's a Palindrome!";
+    palinRA.push(msgStr);
+    palinRA.push(str);
+    return palinRA;
   }
   
   ///palindrome("inabcbani"); //true
@@ -46,7 +59,8 @@ function palindrome(userString) {
 //View function
 function displayString(revString){
     //write to the page
-    document.getElementById("msg").innerHTML = `Your string reversed is: ${revString}`;
+    //document.getElementById("msg").innerHTML = `Your string reversed is: ${revString}`;
+    document.getElementById("msg").innerHTML = `${revString[0]}: ${revString[1]}`;
     //show alert div
     document.getElementById("alert").classList.remove("invisible");
 }
