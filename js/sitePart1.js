@@ -2,12 +2,9 @@
 // controller function
 function getValues(){
     hideAlert(); //makes sure div id='alert' invisible on start
-    //get the palindrom candidate
     let userString = document.getElementById('userString').value;
-    //check for a palindrome
     //let revString = reverseString(userString);
     let revString = palindrome(userString);
-    //print the outcome
     displayString(revString);
 }
 
