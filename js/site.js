@@ -6,9 +6,9 @@ function getValues(){
     let userString = document.getElementById('userString').value;
     //check for a palindrome
     //let revString = reverseString(userString);
-    let revString = palindrome(userString);
+    let returnObj= palindrome(userString);
     //print the outcome
-    displayString(revString);
+    displayString(returnObj);
 }
 
 //reverse string
@@ -26,30 +26,32 @@ function reverseString(userString){
 */
 // from https://stackoverflow.com/questions/46276224/how-to-remove-all-non-alphabet-characters-javascript#46276295
 function palindrome(userString) {
-    let str = userString;
+
     let palinRA = [];
     let msgStr = "";
 
-    str = str.toLowerCase().replace(/[^a-z]/g, '');
-    let max = str.length - 1;
-    for (let i = Math.floor(max / 2); i >= 0; i--) { //returns false on 1st mismatch
-      if (str[i] != str[max - i]) {
-        //return false;
-        document.getElementById("isPalindrome").innerHTML = `It's not a Palindrome.`;
-        msgStr = "Sadly, not a Palindrome.";
-        palinRA.push(msgStr);
-        palinRA.push(userString);
-        //return userString;
-        return palinRA;
-      }
+    userString = userString.toLowerCase();
+    let regex = /[^a-z0-9]/gi; //reove all spaces, special char. - numbers and alpha only
+    userString = userString.replace(regex, "");
+
+    let revString = [];
+    let returnObj  = {};
+
+    for (let index = userString.length-1; index >= 0; index--) {
+      revString += userString[index]; //And verily the last shall be first
+      
     }
-    //return true;
-    document.getElementById("isPalindrome").innerHTML = `It's a Palindrome!`;
-    //return str;
-    msgStr = "It's a Palindrome!";
-    palinRA.push(msgStr);
-    palinRA.push(str);
-    return palinRA;
+
+    if (revString == userString) {
+      returnObj.msg = "Well done! You entered a palindrome."
+    }else{
+      returnObj.msg = 'Sorry! You did not enter a palindrome.'
+    }
+
+    returnObj.reversed = revString;
+
+    return returnObj;
+
   }
   
   ///palindrome("inabcbani"); //true
@@ -60,10 +62,11 @@ function palindrome(userString) {
 
 //display result and message
 //View function
-function displayString(revString){
+function displayString(returnObj){
     //write to the page
     //document.getElementById("msg").innerHTML = `Your string reversed is: ${revString}`;
-    document.getElementById("msg").innerHTML = `${revString[0]}: ${revString[1]}`;
+    document.getElementById("alertHeader").innerHTML = returnObj.msg;
+    document.getElementById("msg").innerHTML = `Your phrase reversed is: ${returnObj.reversed}`
     //show alert div
     document.getElementById("alert").classList.remove("invisible");
 }
